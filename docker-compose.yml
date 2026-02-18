@@ -1,0 +1,42 @@
+services:
+  init-clone:
+    build: .
+    entrypoint: ["/usr/local/bin/clone.sh"]
+    environment: &env
+      GH_TOKEN: ${GH_TOKEN}
+      REPO_NAME: ${REPO_NAME}
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD}
+      OPENCODE_SERVER_USERNAME: opencode
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      DEV_SERVER_CMD: ${DEV_SERVER_CMD:-npm run dev -- --host 0.0.0.0}
+    volumes:
+      - opencode-home:/home/opencode
+
+  opencode:
+    build: .
+    command: ["opencode", "serve", "--port", "4096", "--hostname", "0.0.0.0"]
+    ports:
+      - "4096:4096"
+    environment: *env
+    volumes:
+      - opencode-home:/home/opencode
+    depends_on:
+      init-clone:
+        condition: service_completed_successfully
+
+  preview:
+    build: .
+    command: ["bash", "-lc", "cd $HOME/workspace && eval \"$DEV_SERVER_CMD\""]
+    ports:
+      - "5173:5173"
+    environment: *env
+    volumes:
+      - opencode-home:/home/opencode
+    depends_on:
+      init-clone:
+        condition: service_completed_successfully
+
+volumes:
+  opencode-home:

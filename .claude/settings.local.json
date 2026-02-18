@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(find:*)",
+      "WebFetch(domain:bjw-s-labs.github.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:opencode.ai)",
+      "WebFetch(domain:agileweboperations.com)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(security find-internet-password:*)",
+      "Bash(gh auth login:*)",
+      "Bash(gh api:*)",
+      "Bash(gh auth:*)",
+      "Bash(sops:*)",
+      "Bash(openssl rand:*)",
+      "Bash(SOPS_AGE_KEY_FILE=/Users/mathiasuhl/Documents/Code/homeautomation/cberg-home-nextgen/age.key sops:*)",
+      "Bash(SOPS_AGE_KEY_FILE=age.key sops:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
