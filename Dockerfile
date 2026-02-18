@@ -19,9 +19,11 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     && apt-get install -y --no-install-recommends gh \
     && rm -rf /var/lib/apt/lists/*
 
-# Create non-root user
-RUN groupadd --gid 1000 opencode \
-    && useradd --uid 1000 --gid 1000 --create-home --shell /bin/bash opencode
+# Rename the existing ubuntu user (UID 1000) to opencode
+RUN usermod -l opencode ubuntu \
+    && groupmod -n opencode ubuntu \
+    && usermod -d /home/opencode -m opencode \
+    && usermod -s /bin/bash opencode
 
 # Switch to non-root user for all remaining steps
 USER opencode
