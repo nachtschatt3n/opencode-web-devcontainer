@@ -31,6 +31,9 @@ USER opencode
 ENV HOME=/home/opencode
 WORKDIR /home/opencode
 
+# Trust all git directories (needed for kubelet-owned subPath PVC mounts)
+RUN git config --global safe.directory '*'
+
 # Install mise
 RUN curl https://mise.run | sh
 
