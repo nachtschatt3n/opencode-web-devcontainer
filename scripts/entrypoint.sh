@@ -1,10 +1,7 @@
 #!/bin/bash
 set -e
 
-# Configure gh CLI with token
-if [ -n "$GH_TOKEN" ]; then
-  echo "$GH_TOKEN" | gh auth login --with-token
-fi
+# GH_TOKEN env var is used automatically by gh CLI — no explicit login needed.
 
 # Run the command passed as arguments
 exec "$@"

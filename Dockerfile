@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     unzip \
     bash \
+    python3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install gh CLI
