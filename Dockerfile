@@ -1,7 +1,9 @@
 FROM ubuntu:24.04
 
-# Install system packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install system packages. `apt-get upgrade` pulls security fixes published
+# after the ubuntu:24.04 tag was last cut, so every rebuild is actually fresh.
+RUN apt-get update && apt-get upgrade -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends \
     curl \
     git \
     ca-certificates \
